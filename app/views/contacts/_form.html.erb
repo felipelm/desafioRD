@@ -19,6 +19,14 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
+
+  <% @custom_fields.each do |cf| %>
+    <div class="field">
+      <%= f.label cf.name %><br>
+      <%= render_custom_field(cf) %>
+    </div>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
