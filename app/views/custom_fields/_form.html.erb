@@ -12,9 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :custom_field_type %><br>
-    <%= f.number_field :custom_field_type %>
+    <%= f.select(:custom_field_type) do %>
+      <% [['Text', 0], ['Text Area', 1], ['Combo Box', 2]].each do |c| -%>
+        <%= content_tag(:option, c.first, value: c.last) %>
+      <% end %>
+    <% end %>
   </div>
+
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
