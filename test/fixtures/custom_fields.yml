@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  custom_field_type: 1
+  name: MyString
+  description: MyText
+  default: MyText
+
+two:
+  custom_field_type: 1
+  name: MyString
+  description: MyText
+  default: MyText
