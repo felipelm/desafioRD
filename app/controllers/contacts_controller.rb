@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
+    @contacts = Contact.where(user_id: current_user.id)
   end
 
   # GET /contacts/1
@@ -15,12 +15,12 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
-    @custom_fields = CustomField.all
+    @custom_fields = CustomField.where(user_id: current_user.id)
   end
 
   # GET /contacts/1/edit
   def edit
-    @custom_fields = CustomField.all
+    @custom_fields = CustomField.where(user_id: current_user.id)
 
   end
 
@@ -70,7 +70,7 @@ class ContactsController < ApplicationController
   private
 
     def update_custom_field_values
-      if !params[:cf].empty?
+      if !params[:cf].nil? && !params[:cf].empty?
         params.require(:cf).each do |cf|
           new_cf_value = @contact.custom_field_values.find_by_custom_field_id(cf.first)
           new_cf_value.value = cf.second
@@ -96,6 +96,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:name, :email)
+      params.require(:contact).permit(:name, :email).merge(user_id: current_user.id)
     end
 end
