@@ -20,18 +20,22 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1/edit
   def edit
+    @custom_fields = CustomField.all
+
   end
 
   # POST /contacts
   # POST /contacts.json
   def create
     @contact = Contact.new(contact_params)
+    @contact.custom_field_values = create_custom_field_values
 
     respond_to do |format|
       if @contact.save
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
+        @contact.custom_field_values.destroy_all
         format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
@@ -43,6 +47,7 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
+        update_custom_field_values
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
@@ -63,6 +68,26 @@ class ContactsController < ApplicationController
   end
 
   private
+
+    def update_custom_field_values
+      if !params[:cf].empty?
+        params.require(:cf).each do |cf|
+          new_cf_value = @contact.custom_field_values.find_by_custom_field_id(cf.first)
+          new_cf_value.value = cf.second
+          new_cf_value.save
+        end
+      end
+    end
+
+    def create_custom_field_values
+      custom_fields = []
+      if !params[:cf].empty?
+        params.require(:cf).each do |cf|
+          custom_fields << CustomFieldValue.create(custom_field_id: cf.first, value: cf.second)
+        end
+      end
+      custom_fields
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
