@@ -12,11 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.select(:custom_field_type) do %>
-      <% [['Text', 0], ['Text Area', 1], ['Combo Box', 2]].each do |c| -%>
-        <%= content_tag(:option, c.first, value: c.last) %>
-      <% end %>
-    <% end %>
+    <%= f.select :custom_field_type, options_for_select([['Text', 0], ['Text Area', 1], ['Combo Box', 2]], @custom_field.custom_field_type) %>
   </div>
 
   <div class="field">
