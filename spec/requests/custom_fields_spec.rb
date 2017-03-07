@@ -4,6 +4,11 @@ RSpec.describe "CreateCustomFields", type: :request do
   describe "GET /create_custom_fields" do
     let(:custom_field) { build :custom_field_textfield }
 
+    before :each do
+      @user = create(:user)
+      login_as @user
+    end
+
     it "have custom_field type options" do
       visit new_custom_field_path
       expect(page).to have_select('custom_field_custom_field_type', options: ['Text', 'Text Area', 'Combo Box'])

@@ -6,6 +6,11 @@ RSpec.describe "CreateCustomFields", type: :request do
     let(:custom_field_textfield) { build :custom_field_textfield }
     let(:custom_field_combobox) { build :custom_field_combobox }
 
+    before :each do
+      @user = create(:user)
+      login_as @user
+    end
+
     it "creates contact" do
       visit new_contact_path
       fill_in 'contact_name', with: contact.name
