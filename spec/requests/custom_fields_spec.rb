@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "CreateCustomFields", type: :request do
   describe "GET /create_custom_fields" do
-    let(:custom_field) { build :custom_field }
+    let(:custom_field) { build :custom_field_textfield }
 
     it "have custom_field type options" do
       visit new_custom_field_path
@@ -18,7 +18,7 @@ RSpec.describe "CreateCustomFields", type: :request do
       submit_form
 
       expect(page).to have_content '0'
-      expect(page).to have_content 'texto'
+      expect(page).to have_content 'text field'
     end
 
     it "can't create custom_field with same name" do

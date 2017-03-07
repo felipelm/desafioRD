@@ -81,7 +81,7 @@ class ContactsController < ApplicationController
 
     def create_custom_field_values
       custom_fields = []
-      if !params[:cf].empty?
+      if !params[:cf].nil? && !params[:cf].empty?
         params.require(:cf).each do |cf|
           custom_fields << CustomFieldValue.create(custom_field_id: cf.first, value: cf.second)
         end
