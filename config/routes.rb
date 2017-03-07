@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :custom_field_values
   resources :custom_fields
   resources :contacts
