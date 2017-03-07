@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe "custom_fields/new", type: :view do
   before(:each) do
     assign(:custom_field, CustomField.new())
+    @user = create(:user)
+    login_as @user
   end
 
   it "renders new custom_field form" do

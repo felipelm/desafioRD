@@ -25,7 +25,7 @@ FactoryGirl.define do
   factory :custom_field_combobox, class: CustomField do
     user_id 1
     custom_field_type 2
-    name "text field"
+    name "combo box"
     description "teste"
     default "12\r\n34\r\n56"
   end

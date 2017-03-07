@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "custom_fields/edit", type: :view do
   before(:each) do
-    @custom_field = assign(:custom_field, CustomField.create!())
+    @custom_field = create(:custom_field_textfield)
+    @user = create(:user)
+    login_as @user
   end
 
   it "renders the edit custom_field form" do
