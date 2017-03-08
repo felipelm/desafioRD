@@ -3,7 +3,6 @@ ruby "2.3.1"
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.8'
-
 gem 'pg'
 gem 'puma'
 # Use SCSS for stylesheets
@@ -46,6 +45,7 @@ group :test do
   gem "guard-rspec"
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  gem 'sqlite3'
 end
 
 group :development do
