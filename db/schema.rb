@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20170307204738) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170307204738) do
     t.integer  "user_id"
   end
 
-  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id"
+  add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "custom_field_values", force: :cascade do |t|
     t.integer  "contact_id"
@@ -31,8 +34,8 @@ ActiveRecord::Schema.define(version: 20170307204738) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "custom_field_values", ["contact_id"], name: "index_custom_field_values_on_contact_id"
-  add_index "custom_field_values", ["custom_field_id"], name: "index_custom_field_values_on_custom_field_id"
+  add_index "custom_field_values", ["contact_id"], name: "index_custom_field_values_on_contact_id", using: :btree
+  add_index "custom_field_values", ["custom_field_id"], name: "index_custom_field_values_on_custom_field_id", using: :btree
 
   create_table "custom_fields", force: :cascade do |t|
     t.integer  "custom_field_type"
@@ -44,7 +47,7 @@ ActiveRecord::Schema.define(version: 20170307204738) do
     t.integer  "user_id"
   end
 
-  add_index "custom_fields", ["user_id"], name: "index_custom_fields_on_user_id"
+  add_index "custom_fields", ["user_id"], name: "index_custom_fields_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -61,7 +64,11 @@ ActiveRecord::Schema.define(version: 20170307204738) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "contacts", "users"
+  add_foreign_key "custom_field_values", "contacts"
+  add_foreign_key "custom_field_values", "custom_fields"
+  add_foreign_key "custom_fields", "users"
 end
