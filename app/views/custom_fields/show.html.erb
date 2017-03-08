@@ -1,24 +1,26 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <p>
+      <strong>Custom field type:</strong>
+      <%= @custom_field.custom_field_type %>
+    </p>
 
-<p>
-  <strong>Custom field type:</strong>
-  <%= @custom_field.custom_field_type %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @custom_field.name %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @custom_field.name %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @custom_field.description %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @custom_field.description %>
-</p>
+    <p>
+      <strong>Default:</strong>
+      <%= @custom_field.default %>
+    </p>
 
-<p>
-  <strong>Default:</strong>
-  <%= @custom_field.default %>
-</p>
-
-<%= link_to 'Edit', edit_custom_field_path(@custom_field) %> |
-<%= link_to 'Back', custom_fields_path %>
+    <%= link_to 'Edit', edit_custom_field_path(@custom_field) %> |
+    <%= link_to 'Back', custom_fields_path %>
+  </div>
+</div>

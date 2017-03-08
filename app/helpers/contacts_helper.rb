@@ -1,4 +1,7 @@
 module ContactsHelper
+  def get_custom_field_value(cf, contact)
+    contact.custom_field_values.where(custom_field_id: cf.id).try(:first).try(:value)
+  end
 
   def get_current_value(cf)
     if !params[:cf].nil? && !params[:cf][cf.id.to_s].nil?

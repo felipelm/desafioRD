@@ -5,6 +5,13 @@
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <% if !@custom_fields.nil? %>
+        <% @custom_fields.each do |cf| %>
+          <th>
+            <%= cf.name %><br>
+          </th>
+        <% end %>
+      <% end %>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +21,13 @@
       <tr>
         <td><%= contact.name %></td>
         <td><%= contact.email %></td>
+        <% if !@custom_fields.nil? %>
+          <% @custom_fields.each do |cf| %>
+            <td>
+              <%= get_custom_field_value(cf, contact) %><br>
+            </td>
+          <% end %>
+        <% end %>
         <td><%= link_to 'Show', contact %></td>
         <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
         <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>

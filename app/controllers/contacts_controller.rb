@@ -74,10 +74,19 @@ class ContactsController < ApplicationController
     def update_custom_field_values
       if !params[:cf].nil? && !params[:cf].empty?
         params.require(:cf).each do |cf|
-          new_cf_value = @contact.custom_field_values.find_by_custom_field_id(cf.first)
+          new_cf_value = find_or_create_custom_field_value(cf)
           new_cf_value.value = cf.second
           new_cf_value.save
         end
+      end
+    end
+
+    def find_or_create_custom_field_value(cf)
+      cfv = @contact.custom_field_values.find_by_custom_field_id(cf.first)
+      if cfv.nil?
+        CustomFieldValue.create(contact_id: @contact.id,custom_field_id: cf.first, value: cf.second)
+      else
+        cfv
       end
     end
 

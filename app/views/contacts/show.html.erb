@@ -1,14 +1,25 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <p>
+      <strong>Name:</strong>
+      <%= @contact.name %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @contact.name %>
-</p>
+    <p>
+      <strong>Email:</strong>
+      <%= @contact.email %>
+    </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @contact.email %>
-</p>
+    <% if !@custom_fields.nil? %>
+      <% @custom_fields.each do |cf| %>
+        <p>
+          <strong><%= cf.name %>: </strong>
+          <%= get_custom_field_value(cf, @contact) %><br>
+        </p>
+      <% end %>
+    <% end %>
 
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>
+    <%= link_to 'Edit', edit_contact_path(@contact) %> |
+    <%= link_to 'Back', contacts_path %>
+  </div>
+</div>
