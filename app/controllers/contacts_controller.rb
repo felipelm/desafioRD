@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_filter :find_custom_fields
 
   # GET /contacts
   # GET /contacts.json
@@ -15,20 +16,18 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
-    @custom_fields = CustomField.where(user_id: current_user.id)
   end
 
   # GET /contacts/1/edit
   def edit
-    @custom_fields = CustomField.where(user_id: current_user.id)
-
   end
 
   # POST /contacts
   # POST /contacts.json
   def create
     @contact = Contact.new(contact_params)
-    @contact.custom_field_values = create_custom_field_values
+    custom_field_values = create_custom_field_values
+    @contact.custom_field_values = custom_field_values
 
     respond_to do |format|
       if @contact.save
@@ -36,7 +35,7 @@ class ContactsController < ApplicationController
         format.json { render :show, status: :created, location: @contact }
       else
         @contact.custom_field_values.destroy_all
-        format.html { render :new }
+        format.html { render :new, custom_fields: custom_field_values }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -68,6 +67,9 @@ class ContactsController < ApplicationController
   end
 
   private
+    def find_custom_fields
+        @custom_fields = CustomField.where(user_id: current_user.id)
+    end
 
     def update_custom_field_values
       if !params[:cf].nil? && !params[:cf].empty?

@@ -1,7 +1,17 @@
 module ContactsHelper
+
+  def get_current_value(cf)
+    if !params[:cf].nil? && !params[:cf][cf.id.to_s].nil?
+      current_value = params[:cf][cf.id.to_s]
+    else
+      has_value = @contact.custom_field_values.find_by_custom_field_id(cf.id)
+      current_value = has_value ? has_value.value : cf.default
+    end
+    current_value
+  end
+
   def render_custom_field(cf)
-    has_value = @contact.custom_field_values.find_by_custom_field_id(cf.id)
-    current_value = has_value ? has_value.value : cf.default
+    current_value = get_current_value(cf)
 
     case cf.custom_field_type
       when 0

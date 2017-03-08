@@ -31,11 +31,22 @@ RSpec.describe "CreateCustomFields", type: :request do
       expect(page).to have_content 'Email has already been taken'
     end
 
-    it "has textfield appear" do
+    it "has textfield appearing" do
       custom_field_textfield.save
       visit new_contact_path
       expect(page).to have_css("label[for='contact_#{custom_field_textfield.name}']", text: custom_field_textfield.name.humanize)
       expect(page).to have_field("cf_#{custom_field_textfield.id}", with: custom_field_textfield.default)
+    end
+
+    it "rollback for custom_fields" do
+      custom_field_textfield.save
+      visit new_contact_path
+      fill_in "cf_#{custom_field_textfield.id}", with: "testando"
+      submit_form
+      expect(page).to have_content "Email can't be blank"
+
+
+      expect(page).to have_field("cf_#{custom_field_textfield.id}", with: "testando")
     end
 
     it "has combobox with default values" do

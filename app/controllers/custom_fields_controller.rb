@@ -4,7 +4,7 @@ class CustomFieldsController < ApplicationController
   # GET /custom_fields
   # GET /custom_fields.json
   def index
-    @custom_fields = CustomField.all
+    @custom_fields = CustomField.where(user_id: current_user.id)
   end
 
   # GET /custom_fields/1
