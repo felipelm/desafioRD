@@ -1,8 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :users
   resources :custom_field_values
   resources :custom_fields
   resources :contacts
+
+  devise_for :users, :controllers => { registrations: 'users/registrations', sessions: "users/sessions", passwords: 'users/passwords' } do
+    get "/", :to => "users/sessions#create"
+  end
+
+  authenticated :user do
+    root 'contacts#index'
+  end
+
+  unauthenticated :user do
+    devise_scope :user do
+      get "/" => "users/sessions#create"
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

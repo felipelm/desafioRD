@@ -5,11 +5,11 @@ module ContactsHelper
 
     case cf.custom_field_type
       when 0
-        text_field(:cf, cf.id, value: current_value)
+        text_field(:cf, cf.id, value: current_value, class: "form-control")
       when 1
-        text_area(:cf, cf.id, value: current_value)
+        text_area(:cf, cf.id, value: current_value, class: "form-control")
       else 2
-        select(:cf, cf.id, options_for_select(cf.default.split(/\r\n/), current_value))
+        select(:cf, cf.id, options_for_select(cf.default.split(/\r\n/), current_value), class: "form-control")
       end
   end
 end

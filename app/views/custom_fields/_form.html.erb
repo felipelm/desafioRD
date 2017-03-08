@@ -1,33 +1,38 @@
-<%= form_for(@custom_field) do |f| %>
-  <% if @custom_field.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <%= form_for(@custom_field) do |f| %>
+      <% if @custom_field.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this custom_field from being saved:</h2>
 
-      <ul>
-      <% @custom_field.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @custom_field.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.select :custom_field_type, options_for_select([['Text', 0], ['Text Area', 1], ['Combo Box', 2]], @custom_field.custom_field_type) %>
-  </div>
+      <div class="field">
+        <%= f.select :custom_field_type, options_for_select([['Text', 0], ['Text Area', 1], ['Combo Box', 2]], @custom_field.custom_field_type), class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+      <div class="field">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :description %><br>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="field">
+        <%= f.label :default %><br>
+        <%= f.text_area :default, class: "form-control" %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :default %><br>
-    <%= f.text_area :default %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+    
