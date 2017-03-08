@@ -29,7 +29,7 @@ RSpec.describe CustomFieldsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    attributes_for(:custom_field_textfield_invalid)
   }
 
   # This should return the minimal set of values that should be in the session
@@ -104,14 +104,13 @@ RSpec.describe CustomFieldsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:custom_field_textarea)
       }
 
       it "updates the requested custom_field" do
         custom_field = CustomField.create! valid_attributes
         put :update, id: custom_field.to_param, custom_field: new_attributes
         custom_field.reload
-        skip("Add assertions for updated state")
       end
 
       it "assigns the requested custom_field as @custom_field" do

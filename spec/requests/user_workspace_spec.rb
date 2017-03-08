@@ -5,7 +5,13 @@ RSpec.describe "CreateCustomFields", type: :request do
     let(:user_one) { create :user }
     let(:user_two) { create :other_user }
     let(:contact) { build :contact }
+    let(:contact_same_email_one) { build :contact_same_email_one }
+    let(:contact_same_email_two) { build :contact_same_email_two }
+    let(:contact_same_email_three) { build :contact_same_email_three }
     let(:custom_field_textfield) { build :custom_field_textfield }
+    let(:custom_field_textfield_one) { build :custom_field_textfield_one }
+    let(:custom_field_textfield_two) { build :custom_field_textfield_two }
+    let(:custom_field_textfield_three) { build :custom_field_textfield_three }
 
     it "has textfield that appears only to correct user" do
       custom_field_textfield.save
@@ -35,6 +41,18 @@ RSpec.describe "CreateCustomFields", type: :request do
 
       visit contacts_path
       expect(page).to have_no_content contact.name
+    end
+
+    it "has contacts with same email with diferent user scopes" do
+      expect(contact_same_email_one.save).to be
+      expect(contact_same_email_two.save).to be
+      expect(contact_same_email_three.save).to_not be
+    end
+
+    it "has custom_fields with same email with diferent user scopes" do
+      expect(custom_field_textfield_one.save).to be
+      expect(custom_field_textfield_two.save).to be
+      expect(custom_field_textfield_three.save).to_not be
     end
 
   end

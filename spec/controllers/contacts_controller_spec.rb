@@ -28,7 +28,7 @@ RSpec.describe ContactsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    attributes_for(:contact_invalid)
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +103,13 @@ RSpec.describe ContactsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        attributes_for(:contact_other)
       }
 
       it "updates the requested contact" do
         contact = Contact.create! valid_attributes
         put :update, id: contact.to_param, contact: new_attributes
         contact.reload
-        skip("Add assertions for updated state")
       end
 
       it "assigns the requested contact as @contact" do
